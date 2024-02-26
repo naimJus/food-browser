@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">FoodBrowser</string>
+    <string name="portion_arg">Portion Size: %d grams</string>
+    <string name="calories_arg">Calories: %d</string>
+    <string name="brand_arg">Brand: %s</string>
+    <string name="name_arg">Food Name: %s</string>
+    <string name="search">Search</string>
+    <string name="initial_search_text">Search for foods by typing above. Enter at least 3 characters to start discovering delicious options.</string>
+    <string name="default_error">Oops! Something went wrong. Please try again later.</string>
+    <string name="default_error_arg">Oops! Something went wrong. Please try again later.\nError Description: %s</string>
+    <string name="error_while_fetching_items">Oh no! There was an error while fetching items from our database.\nError Description: %s</string>
+    <string name="network_error">Oops! It seems there\'s a network issue. Please check your internet connection and try again.</string>
+
 </resources>

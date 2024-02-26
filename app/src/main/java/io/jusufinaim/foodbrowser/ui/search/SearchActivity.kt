@@ -1,46 +1,35 @@
-package io.jusufinaim.foodbrowser
+package io.jusufinaim.foodbrowser.ui.search
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
 import io.jusufinaim.foodbrowser.ui.theme.FoodBrowserTheme
+import io.jusufinaim.foodbrowser.util.DiComposeActivity
+import javax.inject.Inject
 
-class MainActivity : ComponentActivity() {
+class SearchActivity : DiComposeActivity() {
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+
+    private val viewModel: SearchViewModel by viewModels { factory }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             FoodBrowserTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    SearchScreen(viewModel = viewModel)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FoodBrowserTheme {
-        Greeting("Android")
     }
 }

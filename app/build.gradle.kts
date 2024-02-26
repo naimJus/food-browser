@@ -1,7 +1,7 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    kotlin("kapt")
 }
 
 android {
@@ -19,10 +19,15 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildFeatures {
+            buildConfig = true
+        }
+        buildConfigField("String", "FOOD_WEB_SERVER_URL", "\"https://uih0b7slze.execute-api.us-east-1.amazonaws.com/dev/\"")
     }
 
     buildTypes {
         release {
+            buildConfigField("String", "FOOD_WEB_SERVER_URL", "\"https://uih0b7slze.execute-api.us-east-1.amazonaws.com/dev/\"") // Replace with Prod value
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -51,6 +56,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":common"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
@@ -60,11 +68,19 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
-    testImplementation(libs.junit)
+
+    testImplementation(libs.bundles.test)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
+
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+
+    implementation(libs.bundles.dagger)
+    kapt(libs.dagger.compiler)
+    kapt(libs.dagger.android.processor)
+
+    implementation(libs.bundles.okhttp)
 }
